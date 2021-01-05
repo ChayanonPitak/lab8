@@ -3,9 +3,13 @@
 using namespace std;
 
 int main(){	
+	double CurrentLoan, InterestRate, AnnualPayAmount;
 	cout << "Enter initial loan: ";
+	cin >> CurrentLoan;
 	cout << "Enter interest rate per year (%): ";
+	cin >> InterestRate;
 	cout << "Enter amount you can pay per year: ";
+	cin >> AnnualPayAmount;
 
 	//use 'setw' to set width of table and 'left' to set left-alignment
 	//you can change input argument of 'setw()' to see the effect
@@ -17,17 +21,25 @@ int main(){
 	cout << setw(13) << left << "Payment";
 	cout << setw(13) << left << "NewBalance";
 	cout << "\n";
+
+	int YearCount = 1;
 	
-	//use 'fixed' and 'setprecision' to fix the number of decimal digits for displaying
-	//you can change input argument of 'setprecision()' to see the effect
-	cout << fixed << setprecision(2); 
-	cout << setw(13) << left << 1; 
-	cout << setw(13) << left << 1000.0;
-	cout << setw(13) << left << 50.0;
-	cout << setw(13) << left << 1050.0;
-	cout << setw(13) << left << 100.0;
-	cout << setw(13) << left << 950.0;
-	cout << "\n";	
-	
+	while(true)
+	{
+		//use 'fixed' and 'setprecision' to fix the number of decimal digits for displaying
+		//you can change input argument of 'setprecision()' to see the effect
+		cout << fixed << setprecision(2); 
+		cout << setw(13) << left << YearCount; 
+		cout << setw(13) << left << CurrentLoan;
+		cout << setw(13) << left << CurrentLoan * InterestRate / 100;
+		CurrentLoan += CurrentLoan * InterestRate / 100;
+		cout << setw(13) << left << CurrentLoan;
+		cout << setw(13) << left << (CurrentLoan >= AnnualPayAmount ? AnnualPayAmount : CurrentLoan);
+		CurrentLoan -= (CurrentLoan >= AnnualPayAmount ? AnnualPayAmount : CurrentLoan);
+		cout << setw(13) << left << CurrentLoan;
+		if (CurrentLoan == 0) break;
+		YearCount++;
+		cout << "\n";
+	}
 	return 0;
 }
